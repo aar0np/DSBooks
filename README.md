@@ -13,8 +13,7 @@ A Java web app that demonstrates the use of the Data API with DSE and HCD. Shoul
 It's taken from the super user secret in the underlying Kubernetes project namespace. Can be obtained via cloud CLI and `kubectl`. Example with GKE:
 
 ```
-$ gcloud container clusters get-credentials ui-playground --zone us-central1-c --project libraryproject \
-&& kubectl get secret library-cluster-superuser --namespace aaronsproj -o yaml
+kubectl get secret cluster-superuser --namespace aaronsproj -o yaml
 ```
 
 This command returns the cluster's 64-bit encoded super user name and password. In the output from this command, look for the `data:` section:
