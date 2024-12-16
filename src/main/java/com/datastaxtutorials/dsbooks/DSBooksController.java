@@ -69,25 +69,14 @@ public class DSBooksController {
 		return ResponseEntity.ok(findByAuthor(author));
 	}
 	
-	public Optional<Document> findByTitle(String title) {
+	public FindIterable<Document> findByTitle(String title) {
 		
-		try {
-			return collection.findOne(eq("title",title));
-		} catch (Exception ex) {
-		
-			return Optional.empty();
-		}
+		return collection.find(eq("title",title));
 	}
 	
 	@GetMapping("/albums/title/{title}")
-	public ResponseEntity<Optional<Document>> getBookByTitle(@PathVariable(value="title") String title) {
+	public ResponseEntity<FindIterable<Document>> getBookByTitle(@PathVariable(value="title") String title) {
 		
-		Optional<Document> result = findByTitle(title);
-		
-		if (result.isPresent()) {
-			return ResponseEntity.ok(result);
-		}
-		
-		return ResponseEntity.ok(Optional.ofNullable(null));
+		return ResponseEntity.ok(findByTitle(title));
 	}
 }

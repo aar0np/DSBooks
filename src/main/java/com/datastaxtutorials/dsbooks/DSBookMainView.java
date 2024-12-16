@@ -80,18 +80,17 @@ public class DSBookMainView extends VerticalLayout {
 			if (searchField.getValue().isEmpty() || searchField.getValue().isBlank()) {
 				loadBooks();
 			} else {
-				Optional<Document> bookDoc = 
+				Iterable<Document> bookDocsByTitle = 
 						controller.findByTitle(searchField.getValue());
-				
-				if (bookDoc.isPresent()) {
-					books.put(bookDoc.get().getString("title"), bookDoc.get().getString("_id"));
-				} else {
-					Iterable<Document> bookDocs = controller.findByAuthor(searchField.getValue());
-					
-					for (Document book : bookDocs) {
-						books.put(book.getString("title"), book.getString("_id"));
-					}
+				for (Document book : bookDocsByTitle) {
+					books.put(book.getString("title"), book.getString("_id"));
 				}
+				
+				Iterable<Document> bookDocsByAuthor = controller.findByAuthor(searchField.getValue());
+				for (Document book : bookDocsByAuthor) {
+					books.put(book.getString("title"), book.getString("_id"));
+				}
+
 				allTitles.setItems(books.keySet());
 				setViewToFirstBook();
 				// clear search bar
