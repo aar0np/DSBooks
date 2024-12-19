@@ -33,6 +33,7 @@ public class DSBooksController {
 	}
 	
 	public Optional<Document> getOneBook(String bookId) {
+
 		return collection.findById(bookId);
 	}
 	
@@ -48,6 +49,7 @@ public class DSBooksController {
 	}
 	
 	public FindIterable<Document> getAllBooks() {
+
 		return collection.find();
 	}
 	
@@ -60,6 +62,7 @@ public class DSBooksController {
 	}
 	
 	public FindIterable<Document> findByAuthor(String author) {
+		
 		return collection.find(eq("author",author));
 	}
 	
